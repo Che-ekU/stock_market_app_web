@@ -88,6 +88,7 @@ class BottomNavBar extends StatelessWidget {
                                   onTap: () {
                                     appProvider.activeWatchlist = i;
                                     appProvider.activeTab.value = 0;
+                                    appProvider.indexList.shuffle();
                                     appProvider.notify();
                                   },
                                 ))

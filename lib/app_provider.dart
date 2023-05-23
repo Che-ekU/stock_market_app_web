@@ -4,7 +4,9 @@ import 'dart:math';
 class AppProvider extends ChangeNotifier {
   bool isMobile = false;
   int activeWatchlist = 0;
-  static Random random = Random();
+  List indexList = [1, 2, 3, 0];
+  List<String> watchlistStocks = ["INFY", "TATAMOTORS", "SBIN", "RELIANCE"];
+  Random random = Random();
   List<String> activeTimeFilterTitle = ["Day", "Week", "Month", "Year", "All"];
   ValueNotifier<int> activeTimeFilterIndex = ValueNotifier<int>(0);
   TabController? tabController;
@@ -16,6 +18,7 @@ class AppProvider extends ChangeNotifier {
     "Wallet",
     "Profile"
   ];
+  int selectedStockIndex = 0;
   List<IconData> tabIcons = [
     Icons.bookmark_outline,
     Icons.book_outlined,
@@ -23,9 +26,13 @@ class AppProvider extends ChangeNotifier {
     Icons.wallet_outlined,
     Icons.person_outline
   ];
-  List<Points> getChartData(Random random) {
+  List<Points> getChartData({
+    bool isMiniGraph = false,
+    required Random random,
+  }) {
     return [
-      for (int i = 0; i < 15; i++)
+      if (!isMiniGraph) Points(x: 0, y: 9985),
+      for (int i = 1; i < (!isMiniGraph ? 20 : 10); i++)
         Points(
             x: i.toDouble(),
             y: 9995 +
